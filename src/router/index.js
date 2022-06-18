@@ -1,16 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from '../App.vue'
-import {routerMode} from '../config/env.js'
 const home = () => import(/* webpackChunkName: "home" */ '../pages/home/home.vue')
 const city = () => import(/* webpackChunkName: "city" */ '../pages/city/city.vue')
-console.log(routerMode);
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    mode:routerMode,
+    mode:process.env.ROUTER_MODE,
     component: App,
     children: [
       //地址为空时跳转home页面
@@ -34,8 +32,8 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL,
   routes,
+  strict: process.env.NODE_ENV !== 'production',
   scrollBehavior(to, from, savePosition) {
     if (savePosition) {
       return savePosition

@@ -1,10 +1,9 @@
 //封装请求相关的方法
 import axios from "axios"
 
-import { baseUrl } from '../config/env'
 // 初始化一个axios对象 
 let instance = axios.create({
-    baseURL: baseUrl,
+    baseURL: process.env.VUE_APP_BASE_URL,
     timeout: 30000
 })
 
