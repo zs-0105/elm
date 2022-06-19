@@ -13,6 +13,7 @@
 
 <style lang="scss">
 @import url("assets/style/commen.scss");
+@import url("assets/font/iconfont.css");
 .route-fade-enter-active,
 .route-fade-leave-active {
   transition: opacity 0.3s;
