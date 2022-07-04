@@ -43,6 +43,7 @@ module.exports={
         .set('assets', resolve('src/assets'))
         .set('views', resolve('src/views'))
         .set('components', resolve('src/components'))
+        .set('utils',resolve('src/utils'))
         /*
             * 添加CDN参数到htmlWebpackPlugin配置中
         */

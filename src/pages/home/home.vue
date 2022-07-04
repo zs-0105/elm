@@ -27,7 +27,7 @@
     <section class="group_city_container">
       <ul class="letter_classify">
         <li
-          v-for="(value, key, index) in groupcity"
+          v-for="(value, key, index) in sortGroupCity"
           :key="key"
           class="letter_classify_li"
         >
@@ -58,6 +58,7 @@ export default {
   mounted() {
     // 获取当前城市
     cityGuess().then((res) => {
+      console.log(res);
       this.guessCity = res.name;
       this.guessCityid = res.id;
     });
@@ -88,7 +89,18 @@ export default {
       this.$router.push(`/city/${id}`);
     },
   },
-  computed: {},
+  computed: {
+    sortGroupCity() {
+      let sortobj = {};
+      for (let i = 65; i <= 90; i++) {
+        if (this.groupcity[String.fromCharCode(i)]) {
+          sortobj[String.fromCharCode(i)] =
+            this.groupcity[String.fromCharCode(i)];
+        }
+      }
+      return sortobj;
+    },
+  },
 };
 </script>
 
@@ -96,19 +108,18 @@ export default {
 /* @import url(); 引入公共css类 */
 @import "assets/style/mixin.scss";
 .head_logo {
-  left: 0.5rem;
+  left: 14px;
   font-weight: 400;
   @include ct;
   .icon-elemo {
-    @include sc(0.7rem, #fff);
-    font-size: 28px;
+    @include sc(20px, #fff);
   }
 }
 .city_nav {
-  padding-top: 2.35rem;
+  padding-top: 60px;
   border-top: 1px solid $bc;
   background-color: #fff;
-  margin-bottom: 0.4rem;
+  margin-bottom: 15px;
   .city_tip {
     @include fj;
     line-height: 1.45rem;
@@ -124,18 +135,18 @@ export default {
   .guess_city {
     @include fj;
     align-items: center;
-    height: 1.8rem;
-    padding: 0 0.45rem;
+    height: 40px;
+    padding: 0 10px;
     border-top: 1px solid $bc;
     border-bottom: 2px solid $bc;
-    @include font(0.75rem, 1.8rem);
+    @include font(15px, 20px);
     span:nth-of-type(1) {
       color: $blue;
     }
     .arrow_right {
       @include wh(0.6rem, 0.6rem);
       color: #999;
-      font-size: 28px;
+      font-size: 20px;
       line-height: 0.5rem;
       padding-right: 20px;
     }
@@ -143,7 +154,7 @@ export default {
 }
 #hot_city_container {
   background-color: #fff;
-  margin-bottom: 0.4rem;
+  margin-bottom: 20px;
 }
 .citylistul {
   li {
@@ -152,22 +163,23 @@ export default {
     color: $blue;
     border-bottom: 0.025rem solid $bc;
     border-right: 0.025rem solid $bc;
-    @include wh(25%, 1.75rem);
-    @include font(0.6rem, 1.75rem);
+    @include wh(25%, 40px);
+    @include font(15px, 40px);
   }
   li:nth-of-type(4n) {
     border-right: none;
   }
 }
 .city_title {
+  padding: 5px;
   color: #666;
   font-weight: 400;
   text-indent: 0.45rem;
   border-top: 2px solid $bc;
   border-bottom: 1px solid $bc;
-  @include font(0.55rem, 1.45rem, "Helvetica Neue");
+  @include font(15px,15px, "Helvetica Neue");
   span {
-    @include sc(0.475rem, #999);
+    @include sc(15px, #999);
   }
 }
 .letter_classify_li {
