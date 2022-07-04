@@ -196,8 +196,9 @@ export default {
 <style lang="scss" scoped>
 /* @import url(); 引入公共css类 */
 @import '@/assets/style/mixin.scss';
-.shoplist_container{
+.list_container{
 	background-color: #fff;
+  	padding-bottom: 40px;
 	}
 	.shop_li{
 		display: flex;
