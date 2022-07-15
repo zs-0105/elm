@@ -220,7 +220,7 @@
                 </transition>
                 <transition appear @after-appear='afterEnter' @before-appear="beforeEnter"
                     v-for="(item, index) in showMoveDot" :key="index">
-                    <span class="move_dot" v-if="item">
+                    <span class="move_dot" v-show="item">
                         <svg class="move_liner">
                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-add"></use>
                         </svg>
@@ -307,7 +307,6 @@ export default {
     created() {
         this.geohash = this.$route.query.geohash;
         this.shopId = this.$route.query.id;
-        // this.$router.push('/shop/foodDetail')
         this.INIT_BUYCART();
     },
     mounted() {
@@ -541,8 +540,8 @@ export default {
             this.$nextTick(() => {
                 el.style.transform = `translate3d(0,0,0)`;
                 el.children[0].style.transform = `translate3d(0,0,0)`;
-                el.style.transition = 'transform .25s cubic-bezier(0.3, -0.25, 0.7, -0.15)';//
-                el.children[0].style.transition = 'transform .25s linear';
+                el.style.transition = 'transform .42s cubic-bezier(0.49, -0.29, 0.75, 0.41)';//
+                el.children[0].style.transition = 'transform .4s linear';
                 this.showMoveDot = this.showMoveDot.map(item => false);
                 el.children[0].style.opacity = 1;
                 el.children[0].addEventListener('transitionend', () => {
@@ -687,13 +686,11 @@ export default {
 
 .shop_list_container {
     width: 100vw;
-    // height: 74vh;
     height: 95vh;
     display: flex;
     z-index: 1;
     position: relative;
     overflow: hidden;
-    transform: none;
 
     .food_category_title_clone {
         position: absolute;
