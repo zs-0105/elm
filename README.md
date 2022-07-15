@@ -1,7 +1,7 @@
 # 仿写饿了么
 ## 技术栈：vue2全家桶
 ## 使用脚手架4对这位大哥的项目重新学习搭建
-## （大哥项目地址：https://github.com/bailicangdu/vue2-elm）
+## （大哥项目地址：https://github.com/bailicangdu/vue2-elm ）
 ## shop页面等一些小bug修复
 ## Project setup
 ```
