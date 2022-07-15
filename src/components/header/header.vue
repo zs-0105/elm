@@ -8,11 +8,7 @@
     <section class="title_head ellipsis" v-if="headTitle">
       <span class="title_text">{{ headTitle }}</span>
     </section>
-    <router-link
-      :to="userInfo ? '/profile' : 'login'"
-      v-if="signed"
-      class="header_login"
-    >
+    <router-link :to="userInfo ? '/profile' : 'login'" v-if="signed" class="header_login">
       <span class="iconfont icon-my" v-if="userInfo"></span>
       <span class="login_span" v-else>登录|注册</span>
     </router-link>
@@ -46,42 +42,50 @@ export default {
 <style lang="scss" scoped>
 /* @import url(); 引入公共css类 */
 @import "../../assets/style/mixin";
+
 #top-header {
   background-color: $blue;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 100;
   line-height: 45px;
   @include wh(100vw, 45px);
+
   .header_back {
     position: absolute;
     left: 10px;
     @include wh(10px, 30px);
+
     .icon-fenxiang {
       color: aliceblue;
       font-size: 25px;
     }
   }
+
   .header_login {
     position: absolute;
     right: 14px;
+
     .icon-my {
-      @include wh(10px,30px);
+      @include wh(10px, 30px);
       color: aliceblue;
-      font-size:25px;
+      font-size: 25px;
     }
+
     .login_span {
       color: #fff;
       font-size: 15px;
-      @include wh(20px,20px);
+      @include wh(20px, 20px);
     }
   }
+
   .title_head {
     width: 50%;
     @include center;
     text-align: center;
     color: #fff;
+
     .title_text {
       @include sc(20px, aliceblue);
       text-align: center;

@@ -1,4 +1,4 @@
-import {getStyle,getWindowScrollTop} from '@/utils/mUtils'
+import {getWindowScrollTop} from '@/utils/mUtils'
 
 export const loadMore= {
     directives:{

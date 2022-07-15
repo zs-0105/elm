@@ -13,7 +13,6 @@ export default {
 		commit
 	}) {
 		let res = await getUser();
-		console.log(res);
 		commit(GET_USERINFO, res)
 	},
 	async saveAddress({
@@ -21,9 +20,9 @@ export default {
 		state
 	}) {
 
-		if(state.removeAddress.length > 0) return;
+		if (state.removeAddress.length > 0) return;
 
 		let addres = await getAddressList(state.userInfo.user_id);
-		commit(SAVE_ADDRESS, addres);	
+		commit(SAVE_ADDRESS, addres);
 	},
 }

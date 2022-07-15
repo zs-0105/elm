@@ -1,10 +1,25 @@
-import {get,post} from'../utils/request'
-import {getStore} from '../utils/mUtils'
+import {
+	get,
+	post,
+	request,
+	instance
+} from '../utils/request'
+import {
+	getStore
+} from '../utils/mUtils'
+import fetch from '../utils/fetch.js'
 
+// 图片上传
+
+export const upAvatar = (data, id) => post(`/eus/v1/users/${id}/avatar`, data, {
+	headers: {
+		'Content-Type': 'multipart/form-data'
+	}
+})
 /**
  * 获取首页默认地址
  */
- export const cityGuess = () => get('/v1/cities', {
+export const cityGuess = () => get('/v1/cities', {
 	type: 'guess'
 });
 
@@ -196,6 +211,7 @@ export const mobileCode = phone => post('/v4/mobile/verify_code/send', {
  */
 
 export const getcaptchas = () => post('/v1/captchas');
+// export const getcaptchas = () => fetch('/v1/captchas', {}, 'POST');
 
 
 /**
@@ -256,10 +272,17 @@ export const getAddress = (id, sig) => get('/v1/carts/' + id + '/addresses', {
  * 搜索地址
  */
 
-export const searchNearby = keyword => get('/v1/pois', {
-	type: 'nearby',
-	keyword
-});
+export const searchNearby = async keyword => {
+	const {
+		data: res
+	} = await instance.get(`/v1/pois?type=nearby&keyword=${keyword}`)
+	return res
+}
+// export const searchNearby = keyword => get('/v1/pois', {
+// 	type: 'nearby',
+// 	keyword
+// });
+
 
 
 /**
@@ -357,10 +380,10 @@ export const getService = () => get('/v3/profile/explain');
 
 
 /**
-*兑换会员卡
-*/
+ *兑换会员卡
+ */
 
-export const vipCart = (id, number, password) => post('/member/v1/users/' + id + '/delivery_card/physical_card/bind',{
+export const vipCart = (id, number, password) => post('/member/v1/users/' + id + '/delivery_card/physical_card/bind', {
 	number,
 	password
 })
@@ -369,7 +392,7 @@ export const vipCart = (id, number, password) => post('/member/v1/users/' + id +
 
 /**
  * 获取红包
-*/
+ */
 
 export const getHongbaoNum = id => get('/promotion/v2/users/' + id + '/hongbaos?limit=20&offset=0');
 
@@ -377,7 +400,7 @@ export const getHongbaoNum = id => get('/promotion/v2/users/' + id + '/hongbaos?
 
 /**
  * 获取过期红包
-*/
+ */
 
 
 export const getExpired = id => get('/promotion/v2/users/' + id + '/expired_hongbaos?limit=20&offset=0');
@@ -385,9 +408,9 @@ export const getExpired = id => get('/promotion/v2/users/' + id + '/expired_hong
 
 /**
  * 兑换红包
-*/
+ */
 
-export const exChangeHongbao = (id, exchange_code, captcha_code) => post('/v1/users/' + id + '/hongbao/exchange',{
+export const exChangeHongbao = (id, exchange_code, captcha_code) => post('/v1/users/' + id + '/hongbao/exchange', {
 	exchange_code,
 	captcha_code,
 });
@@ -397,14 +420,16 @@ export const exChangeHongbao = (id, exchange_code, captcha_code) => post('/v1/us
  * 获取用户信息
  */
 
-export const getUser = () => get('/v1/user', {user_id: getStore('user_id')});
+export const getUser = () => get('/v1/user', {
+	user_id: getStore('user_id')
+});
 
 
 /**
  * 手机号登录
  */
 
-var sendLogin = (code, mobile, validate_token) => post('/v1/login/app_mobile', {
+export const sendLogin = (code, mobile, validate_token) => post('/v1/login/app_mobile', {
 	code,
 	mobile,
 	validate_token
@@ -429,32 +454,45 @@ export const getOrderDetail = (user_id, orderid) => get('/bos/v1/users/' + user_
 
 
 /**
-*个人中心里编辑地址
-*/
+ *个人中心里编辑地址
+ */
 
-export const getAddressList = (user_id) => get('/v1/users/'+user_id+'/addresses')
+export const getAddressList = (user_id) => get('/v1/users/' + user_id + '/addresses')
 
 /**
-*个人中心里搜索地址
-*/
-
-export const getSearchAddress = (keyword) => get('v1/pois',{
-	keyword:keyword,
-	type:'nearby'
+ *个人中心里搜索地址
+ */
+// 该接口不可用
+export const getSearchAddress = (keyword) => get('v1/pois', {
+	keyword: keyword,
+	type: 'nearby'
 })
 
 /**
-* 删除地址
-*/
+ * 删除地址
+ */
 
-export const deleteAddress = (userid, addressid) => get( '/v1/users/' + userid + '/addresses/' + addressid, {}, 'DELETE')
+export const deleteAddress = async (userid, addressid) => {
+	const res = await request.delete('/v1/users/' + userid + '/addresses/' + addressid)
+	return res
+}
 
 
 
 /**
  * 账号密码登录
  */
-export const accountLogin = (username, password, captcha_code) => post('/v2/login', {username, password, captcha_code});
+export const accountLogin = (username, password, captcha_code) => post('/v2/login', {
+	username,
+	password,
+	captcha_code
+});
+// export const accountLogin = (username, password, captcha_code) => fetch('/v2/login', {
+// 	username,
+// 	password,
+// 	captcha_code
+// }, 'POST');
+
 
 
 /**
@@ -466,4 +504,10 @@ export const signout = () => get('/v2/signout');
 /**
  * 改密码
  */
-export const changePassword = (username, oldpassWord, newpassword, confirmpassword, captcha_code) => post('/v2/changepassword', {username, oldpassWord, newpassword, confirmpassword, captcha_code});
+export const changePassword = (username, oldpassWord, newpassword, confirmpassword, captcha_code) => post('/v2/changepassword', {
+	username,
+	oldpassWord,
+	newpassword,
+	confirmpassword,
+	captcha_code
+});
